@@ -1,0 +1,3 @@
+source ~/dotfiles/zsh/functions/functions.zsh
+source ~/dotfiles/zsh/zsh_plugins.sh
+

@@ -1,0 +1,34 @@
+# Settings
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true # Swap original file
+
+# TODO: ?
+- clean: ["~", "~/.config"]
+
+# Run shell commands
+- shell:
+    # Install submodules
+    - [git submodule update --init --recursive, Installing submodules]
+
+# TODO: add specific shell block to install tools (not sure how)
+#- shell:
+    # TODO: delete! probably dont need it
+    #- npm config set prefix '~/.npm-global'
+    # TODO: Automate filling in the list
+    # TODO: Install go tools
+    # - go get -u github.com/m3ng9i/ran
+    # TODO: Install rust tools
+    # TODO: Install npm global tools
+    # - npm install -g @fabiospampinato/bump
+    # TODO: install vs code extensions
+    # - code --list-extensions
+
+
+# Symlink files
+- link:
+    # Zsh
+    ~/.zshrc: zsh/zshrc
+    #~/.zprofile: zsh/zprofile.zsh
