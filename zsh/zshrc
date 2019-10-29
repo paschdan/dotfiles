@@ -30,3 +30,5 @@ setopt globdots
 export LD_LIBRARY_PATH=/usr/local/lib
 
 ####################
+
+source ~/dotfiles/zsh/aliases/docker.zsh
