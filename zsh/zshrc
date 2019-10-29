@@ -1,4 +1,32 @@
 source ~/dotfiles/zsh/functions/functions.zsh
-source ~/dotfiles/zsh/zsh_plugins.sh
-source ~/dotfiles/zsh/aliases/docker.zsh
 
+################################################################################
+# Antibody setup
+################################################################################
+
+# From oh-my-zsh
+export ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh"
+DISABLE_AUTO_UPDATE="true"
+
+source <(antibody init)
+antibody bundle < ~/dotfiles/zsh/plugins.txt
+#source ~/dotfiles/zsh/zsh_plugins.sh
+
+alias 'ra'='antibody bundle \
+            < ~/dotfiles/zsh/plugins.txt \
+            > ~/dotfiles/zsh/zsh_plugins.sh && \
+            antibody update'
+
+
+# enable completion features
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+
+# allow .hidden file tab completion
+setopt globdots
+
+
+# required to find some shared libs
+export LD_LIBRARY_PATH=/usr/local/lib
+
+####################
