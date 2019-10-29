@@ -1,0 +1,116 @@
+set showmode
+set hlsearch
+set gdefault
+set ignorecase
+set surround
+set multiple-cursors
+set clipboard=unnamed
+
+" ============================================================================
+" easy window navigation
+"
+" ============================================================================
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-k> <c-w>k
+nnoremap <C-w>x :action MoveTabDown<CR>
+nnoremap <C-w>v :action MoveTabRight<CR>
+nnoremap <C-w>X :action SplitHorizontally<CR>
+nnoremap <C-w>V :action SplitVertically<CR>
+nnoremap <C-w>u :action Unsplit<CR>
+nnoremap <C-w>q :q<CR>
+nnoremap <C-w>U :action UnsplitAll<CR>
+
+" ============================================================================
+" Movement
+" ============================================================================ 
+" Previous / next match
+noremap H ,
+noremap L ;
+
+" ============================================================================
+" Editing
+" ============================================================================
+
+" Escape
+inoremap jk <Esc>`^
+inoremap <C-q> <Esc>`^
+noremap <C-q> <Esc>
+vnoremap <C-q> <Esc>
+cmap <C-q> <C-c>
+
+" Moving blocks of text in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Select all text
+map <Space>a ggVG
+
+" Copy until the end of the line
+noremap Y y$
+
+" Indent everything
+noremap <Space>I ggvG=
+
+" Indent selection in visual mode
+vnoremap <Space>i =
+
+" Indent the current line
+noremap <Space>i v=
+
+
+" ============================================================================
+" Editor control
+" ============================================================================
+
+" Enter the command-line mode
+noremap <CR> :
+
+" Reload .ideavimrc
+nnoremap <Space>vs :source ~/.ideavimrc<CR>
+
+" unimpaired mappings
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+
+
+" ============================================================================
+" IDE actions
+" ============================================================================
+
+nnoremap / :action Find<CR>
+nnoremap n :action FindNext<CR>
+nnoremap N :action FindPrevious<CR>
+nnoremap U :action Redo<CR>
+nnoremap ; :action AceAction<CR>
+nnoremap <Space>o :action GotoClass<CR>
+nnoremap <Space>O :action GotoFile<CR>
+nnoremap <Space><Space> :action GotoFile<CR>
+nnoremap <Space>d :action CloseContent<CR>
+nnoremap <Space>j :action RecentFiles<CR>
+nnoremap <Space>k :action FileStructurePopup<CR>
+nnoremap <Space>h :action QuickJavaDoc<CR>
+nnoremap <Space>gg :action CheckinProject<CR>
+nnoremap <C-w>q :action CloseContent<CR>
+nnoremap <C-w><C-q> :action CloseContent<CR>
+nnoremap <C-w>d :action ToggleDistractionFreeMode<CR>
+nnoremap <Space>L :action Macro.reformat_code<CR>
+nnoremap <Space>gu :action Github.Open.In.Browser <CR>
+vnoremap <Space>gu :action Github.Open.In.Browser <CR>
+nnoremap <Space>go :action com.github.shiraji.findpullrequest.action.FindPullRequestAction<CR>
+nnoremap <Space>op :action SelectInProjectView<CR>
+nnoremap <Space>gh :action Vcs.ShowTabbedFileHistory<CR>
+vnoremap <space>gh :action Vcs.ShowHistoryForBlock<CR>
+nnoremap <Space>y :action CopyReference<CR>
+nnoremap <A-S-j> :action EditorCloneCaretBelow<CR>
+nnoremap <Space>mn :action MethodDown<CR>
+nnoremap <Space>mp :action MethodUp<CR>
