@@ -31,4 +31,4 @@
 - link:
     # Zsh
     ~/.zshrc: zsh/zshrc
-    #~/.zprofile: zsh/zprofile.zsh
+    ~/.ideavimrc: idea/ideavimrc
