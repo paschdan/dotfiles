@@ -32,3 +32,4 @@
     # Zsh
     ~/.zshrc: zsh/zshrc
     ~/.ideavimrc: idea/ideavimrc
+    ~/.p10k.zsh: zsh/p10k.zsh
