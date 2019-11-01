@@ -7,18 +7,6 @@ fi
 typeset -gaU cdpath fpath mailpath path
 path=($HOME/bin $HOME/.local/bin $path)
 
-#completions
-autoload -Uz compinit
-fpath=(~/dotfiles/zsh/completions $fpath)
-() {
-  local f=${XDG_CACHE_HOME:-~/.cache}/.zcompdump-$ZSH_VERSION
-    compinit -C -d $f
-      [[ ${(%):-%#} == '#' || $f.zwc -nt $f ]] || zcompile $f
-}
-# Use caching to make completion for commands such as dpkg and apt usable.
-zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "${XDG_CACHE_HOME:-~/.cache}/.zcompcache-$ZSH_VERSION"
-
 function jit() {
 	emulate -L zsh
 	[[ ${(%):-%#} == '#' || $1.zwc -nt $1 || ! -w ${1:h} ]] || zcompile $1
@@ -33,14 +21,28 @@ function jit-source() {
 
 jit ~/.zshrc
 
+#completions
+fpath=(~/dotfiles/zsh/completions $fpath)
+
+autoload -Uz compinit && compinit
+
+#history settings
+
+jit-source ~/dotfiles/zsh/history.zsh
+
+#aliases
+jit-source ~/dotfiles/zsh/aliases/docker.zsh
+jit-source ~/dotfiles/zsh/aliases/git.zsh
+
 # Theme
 jit-source ~/.p10k.zsh
 jit-source ~/dotfiles/zsh/powerlevel10k/powerlevel10k.zsh-theme
-
-
 
 # highlight
 jit-source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 #Substring Search
 jit-source ~/dotfiles/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
