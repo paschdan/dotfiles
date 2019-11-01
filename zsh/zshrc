@@ -1,70 +1,46 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
+emulate zsh
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+	  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# vim:ft=zsh:
-# setopt warn_create_global
+typeset -gaU cdpath fpath mailpath path
+path=($HOME/bin $HOME/.local/bin $path)
 
-### ZPLUGIN
-local __ZPLUGIN="${ZDOTDIR:-$HOME}/.zplugin/bin/zplugin.zsh"
+#completions
+autoload -Uz compinit
+fpath=(~/dotfiles/zsh/completions $fpath)
+() {
+  local f=${XDG_CACHE_HOME:-~/.cache}/.zcompdump-$ZSH_VERSION
+    compinit -C -d $f
+      [[ ${(%):-%#} == '#' || $f.zwc -nt $f ]] || zcompile $f
+}
+# Use caching to make completion for commands such as dpkg and apt usable.
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "${XDG_CACHE_HOME:-~/.cache}/.zcompcache-$ZSH_VERSION"
 
-if [[ ! -f "$__ZPLUGIN" ]]; then
-  if (( $+commands[curl] )); then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
-  else
-    echo 'curl not found' >&2
-    exit 1
-  fi
-fi
+function jit() {
+	emulate -L zsh
+	[[ ${(%):-%#} == '#' || $1.zwc -nt $1 || ! -w ${1:h} ]] || zcompile $1
+}
 
-source "$__ZPLUGIN"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+function jit-source() {
+	emulate -L zsh
+	[[ -e $1 ]] || return
+	jit $1
+	source $1
+}
 
-###
+jit ~/.zshrc
+
+# Theme
+jit-source ~/.p10k.zsh
+jit-source ~/dotfiles/zsh/powerlevel10k/powerlevel10k.zsh-theme
 
 
-# Utility {{{
-zplugin ice wait lucid
-zplugin light https://github.com/zsh-users/zsh-history-substring-search
 
-zplugin load zdharma/history-search-multi-word
+# highlight
+jit-source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-zplugin ice wait lucid atload"_zsh_autosuggest_start"
-zplugin light https://github.com/zsh-users/zsh-autosuggestions
-export ZSH_AUTOSUGGEST_USE_ASYNC=true
-
-zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"
-zplugin light https://github.com/zdharma/fast-syntax-highlighting
-
-zplugin ice wait lucid
-zplugin light https://github.com/djui/alias-tips
-
-zplugin ice wait blockf lucid
-zplugin light https://github.com/zsh-users/zsh-completions
-
-# }}}
-
-# Shell {{{
-zplugin light zdharma/zui
-
-zplugin ice pick"async.zsh" src"pure.zsh"
-zplugin ice depth=1; zplugin light romkatv/powerlevel10k
-
-# }}}
-# Prezto {{{
-zplugin ice svn
-zplugin snippet PZT::modules/docker
-
-zplugin ice svn 
-zplugin snippet PZT::modules/helper
-
-zplugin ice svn 
-zplugin snippet PZT::modules/git
-# }}}
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#Substring Search
+jit-source ~/dotfiles/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
