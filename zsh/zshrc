@@ -1,5 +1,6 @@
 emulate zsh
 
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 	  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -33,6 +34,13 @@ jit-source ~/dotfiles/zsh/history.zsh
 #aliases
 jit-source ~/dotfiles/zsh/aliases/docker.zsh
 jit-source ~/dotfiles/zsh/aliases/git.zsh
+
+# fzf
+path+=~/dotfiles/zsh/fzf/bin
+FZF_COMPLETION_TRIGGER=
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
+jit-source ~/dotfiles/zsh/fzf/shell/completion.zsh
+jit-source ~/dotfiles/zsh/fzf/shell/key-bindings.zsh
 
 # Theme
 jit-source ~/.p10k.zsh
