@@ -35,3 +35,6 @@
     ~/.zshrc: zsh/zshrc
     ~/.ideavimrc: idea/ideavimrc
     ~/.p10k.zsh: zsh/p10k.zsh
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore_global: git/gitignore_global
+    ~/work/.gitconfig: git/gitconfig_work

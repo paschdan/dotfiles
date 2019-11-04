@@ -89,8 +89,6 @@ bindkey '\e[1;3B' fzf-cd-widget                       # alt+down   fzf cd
 bindkey '^T'      fzf-completion                      # ctrl+t     fzf completion
 bindkey '^R'      fzf-history-widget-unique           # ctrl+r     fzf history
 
-
-
 # Theme
 jit-source ~/.p10k.zsh
 jit-source ~/dotfiles/zsh/powerlevel10k/powerlevel10k.zsh-theme

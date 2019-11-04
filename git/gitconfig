@@ -1,0 +1,15 @@
+[user]
+	name = paschdan
+	email = paschdan@gmail.com
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[alias]
+	cu = "!git branch --merged | egrep -v '(^\\*|\\s1902$|\\s1907$|\\s2001$)' | xargs git branch -d"
+
+[includeIf "gitdir:~/work/"]
+  	path = ~/work/.gitconfig
