@@ -6,12 +6,14 @@
       force: true # Swap original file
 
 # TODO: ?
-- clean: ["~", "~/.config"]
+- clean: ["~"]
 
 # Run shell commands
 - shell:
     # Install submodules
     - [git submodule update --init --recursive, Installing submodules]
+    # Install fzf
+    - bash ~/dotfiles/zsh/fzf/install --bin
 
 # TODO: add specific shell block to install tools (not sure how)
 #- shell:
