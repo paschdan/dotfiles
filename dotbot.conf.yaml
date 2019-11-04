@@ -14,6 +14,8 @@
     - [git submodule update --init --recursive, Installing submodules]
     # Install fzf
     - bash ~/dotfiles/zsh/fzf/install --bin
+    # Install fast alias tips
+    - cd ~/dotfiles/zsh/zsh-fast-alias-tips && make
 
 # TODO: add specific shell block to install tools (not sure how)
 #- shell:

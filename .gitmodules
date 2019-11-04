@@ -13,3 +13,6 @@
 [submodule "zsh/fzf"]
 	path = zsh/fzf
 	url = https://github.com/junegunn/fzf
+[submodule "zsh/zsh-fast-alias-tips"]
+	path = zsh/zsh-fast-alias-tips
+	url = https://github.com/sei40kr/zsh-fast-alias-tips.git
