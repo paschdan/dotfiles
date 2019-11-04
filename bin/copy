@@ -1,0 +1,6 @@
+#!/bin/bash
+TEXT=$@
+
+cat ${TEXT} | xclip -sel clip
+cat ${TEXT} | xclip
+

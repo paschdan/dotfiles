@@ -40,3 +40,5 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitignore_global: git/gitignore_global
     ~/work/.gitconfig: git/gitconfig_work
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/bin/copy: bin/copy
