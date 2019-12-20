@@ -6,7 +6,7 @@ fi
 
 
 typeset -gaU cdpath fpath mailpath path
-path=($HOME/bin $HOME/.local/bin $path)
+path=($HOME/bin $HOME/.local/bin $HOME/.config/composer/vendor/bin $path)
 
 function jit() {
 	emulate -L zsh
