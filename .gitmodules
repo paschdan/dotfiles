@@ -16,3 +16,9 @@
 [submodule "zsh/zsh-fast-alias-tips"]
 	path = zsh/zsh-fast-alias-tips
 	url = https://github.com/sei40kr/zsh-fast-alias-tips.git
+[submodule "emacs/doom.d"]
+	path = emacs/doom.d
+	url = git@github.com:paschdan/doom.d.git
+[submodule "emacs/doom-emacs"]
+	path = emacs/doom-emacs
+	url = https://github.com/hlissner/doom-emacs

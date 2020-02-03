@@ -1,5 +1,25 @@
 zstyle -s ':git:status:ignore' submodules '_git_status_ignore_submodules' \
 	  || _git_status_ignore_submodules='none'
+# functions
+
+function git-branch-current {
+
+if ! command git rev-parse 2> /dev/null; then
+  print "$0: not a repository: $PWD" >&2
+  return 1
+fi
+
+local ref="$(command git symbolic-ref HEAD 2> /dev/null)"
+
+if [[ -n "$ref" ]]; then
+  print "${ref#refs/heads/}"
+  return 0
+else
+  return 1
+fi
+
+}
+
 # Git
 alias g='git'
 
