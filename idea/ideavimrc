@@ -1,4 +1,5 @@
 set showmode
+set visualbell
 set hlsearch
 set gdefault
 set ignorecase
@@ -79,8 +80,8 @@ nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
 
 " built-in navigation to navigated items works better
-nnoremap <c-o> :action Back<cr>
-nnoremap <c-i> :action Forward<cr>
+" nnoremap <c-o> :action Back<cr>
+" nnoremap <c-i> :action Forward<cr>
 
 
 " ============================================================================
@@ -110,6 +111,7 @@ nnoremap <Space>go :action com.github.shiraji.findpullrequest.action.FindPullReq
 nnoremap <Space>op :action SelectInProjectView<CR>
 nnoremap <Space>gh :action Vcs.ShowTabbedFileHistory<CR>
 vnoremap <space>gh :action Vcs.ShowHistoryForBlock<CR>
+vnoremap <space>r :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Space>y :action CopyReference<CR>
 nnoremap <A-S-j> :action EditorCloneCaretBelow<CR>
 nnoremap <Space>mn :action MethodDown<CR>
