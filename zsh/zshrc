@@ -79,6 +79,7 @@ jit-source ~/dotfiles/zsh/history.zsh
 #aliases
 jit-source ~/dotfiles/zsh/aliases/docker.zsh
 jit-source ~/dotfiles/zsh/aliases/git.zsh
+jit-source ~/dotfiles/zsh/aliases/event-ticketing.zsh
 
 # fzf
 path+=~/dotfiles/zsh/fzf/bin
