@@ -1,7 +1,6 @@
 set showmode
 set visualbell
 set hlsearch
-set gdefault
 set ignorecase
 set surround
 set multiple-cursors
@@ -40,6 +39,7 @@ inoremap <C-q> <Esc>`^
 noremap <C-q> <Esc>
 vnoremap <C-q> <Esc>
 cmap <C-q> <C-c>
+nnoremap <esc> :noh<return><esc>
 
 " Moving blocks of text in visual mode
 vnoremap < <gv
@@ -78,6 +78,9 @@ nnoremap [m :action MethodUp<cr>
 nnoremap ]m :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
+nnoremap [e :action GotoPreviousError<cr>
+nnoremap ]e :action GotoNextError<cr>
+
 
 " built-in navigation to navigated items works better
 " nnoremap <c-o> :action Back<cr>
