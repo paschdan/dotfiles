@@ -1,3 +1,7 @@
 [user]
   name = Daniel Paschke
   email = daniel.paschke@sap.com
+  signingkey = AE41AE989D8FCB47
+
+[core]
+#  hooksPath = /Users/D073290/work/git-hooks/hooks

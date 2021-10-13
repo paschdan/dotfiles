@@ -1,6 +1,7 @@
 [user]
 	name = paschdan
 	email = paschdan@gmail.com
+	signingkey = 933521D58E8580C6
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore_global
@@ -9,7 +10,23 @@
 [rebase]
 	autoStash = true
 [alias]
-	cu = "!git branch --merged | egrep -v '(^\\*|\\s1902$|\\s1907$|\\s2001$)' | xargs git branch -d"
+	cu = "!git branch --merged | egrep -v '(^\\*|\\smain$|\\smaster$)' | xargs git branch -d"
 
 [includeIf "gitdir:~/work/"]
   	path = ~/work/.gitconfig
+[github "github.wdf.sap.corp/api/v3"]
+	user = D073290
+[log]
+ 	mailmap=true
+[commit]
+	gpgsign = true
+	template = /Users/D073290/work/git-hooks/commit-template
+[gpg]
+	program = gpg
+[credential]
+	helper = store --file ~/.git-credentials
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
