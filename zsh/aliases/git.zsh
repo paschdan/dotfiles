@@ -20,6 +20,22 @@ fi
 
 }
 
+# create pr
+function gpr {
+  local base="$(command git log --pretty=format:"%d" | grep \( | head -n2 | tail -n1 | tr -d '()' | cut -f1 -d "," | cut -f2 -d '/' | xargs)"
+  local ticket="$(command git rev-parse --abbrev-ref HEAD | cut -d '_' -f 1)"
+  local subject="$(command git rev-parse --abbrev-ref HEAD | cut -d '_' -f2- | sed 's/[-_]/ /g')"
+  gh pr create -w -B ${base} -t "${ticket}: ${subject}"
+}
+
+# rebase
+function grb {
+  local base="$(command git log --pretty=format:"%d" | grep \( | head -n2 | tail -n1 | tr -d '()' | cut -f1 -d "," | cut -f2 -d '/' | xargs)"
+  git rebase upstream/${base}
+}
+
+
+
 # Git
 alias g='git'
 
@@ -87,6 +103,7 @@ alias gdi='git status --porcelain --short --ignored | sed -n "s/^!! //p"'
 # Fetch (f)
 alias gf='git fetch'
 alias gfa='git fetch --all'
+alias gfu='git fetch upstream'
 alias gfc='git clone'
 alias gfcr='git clone --recurse-submodules'
 alias gfm='git pull'

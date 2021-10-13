@@ -3,7 +3,6 @@ set visualbell
 set hlsearch
 set ignorecase
 set surround
-set multiple-cursors
 set clipboard=unnamed
 
 " ============================================================================
@@ -86,6 +85,13 @@ nnoremap ]e :action GotoNextError<cr>
 " nnoremap <c-o> :action Back<cr>
 " nnoremap <c-i> :action Forward<cr>
 
+" ===========================================================================
+" extensions
+" ===========================================================================
+set multiple-cursors
+map g<A-n> <Plug>AllOccurences
+
+
 
 " ============================================================================
 " IDE actions
@@ -103,7 +109,8 @@ nnoremap <Space>d :action CloseContent<CR>
 nnoremap <Space>j :action RecentFiles<CR>
 nnoremap <Space>k :action FileStructurePopup<CR>
 nnoremap <Space>h :action QuickJavaDoc<CR>
-nnoremap <Space>gg :action CheckinProject<CR>
+" nnoremap <Space>gg :action CheckinProject<CR>
+nnoremap <Space>gg :action Tool_External Tools_Magit<CR>
 nnoremap <C-w>q :action CloseContent<CR>
 nnoremap <C-w><C-q> :action CloseContent<CR>
 nnoremap <C-w>d :action ToggleDistractionFreeMode<CR>
