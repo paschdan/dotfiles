@@ -2,8 +2,27 @@ set showmode
 set visualbell
 set hlsearch
 set ignorecase
+set smartcase
 set surround
-set clipboard=unnamed
+set ideajoin
+set NERDTree
+set multiple-cursors
+set nu
+set rnu
+set idearefactormode=keep
+
+let mapleader = " "
+"set easymotion
+
+
+" system clipboard
+vmap <leader>y "+y
+vmap <leader>d "+d
+nmap <leader>y "+yy
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
 
 " ============================================================================
 " easy window navigation
@@ -13,9 +32,9 @@ nnoremap <c-l> <c-w>l
 nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h
 nnoremap <c-k> <c-w>k
-nnoremap <C-w>x :action MoveTabDown<CR>
+nnoremap <C-w>s :action MoveTabDown<CR>
 nnoremap <C-w>v :action MoveTabRight<CR>
-nnoremap <C-w>X :action SplitHorizontally<CR>
+nnoremap <C-w>S :action SplitHorizontally<CR>
 nnoremap <C-w>V :action SplitVertically<CR>
 nnoremap <C-w>u :action Unsplit<CR>
 nnoremap <C-w>q :q<CR>
@@ -23,7 +42,7 @@ nnoremap <C-w>U :action UnsplitAll<CR>
 
 " ============================================================================
 " Movement
-" ============================================================================ 
+" ============================================================================
 " Previous / next match
 noremap H ,
 noremap L ;
@@ -50,6 +69,10 @@ map <Space>a ggVG
 " Copy until the end of the line
 noremap Y y$
 
+" Use Q for formatting the current paragraph (or visual selection)
+vmap Q gq
+nmap Q gqap
+
 " Indent everything
 noremap <Space>I ggvG=
 
@@ -63,12 +86,13 @@ noremap <Space>i v=
 " ============================================================================
 " Editor control
 " ============================================================================
+"
 
 " Enter the command-line mode
 noremap <CR> :
 
 " Reload .ideavimrc
-nnoremap <Space>vs :source ~/.ideavimrc<CR>
+nnoremap <Space>vs :source ~/.ideavimrc !<CR>
 
 " unimpaired mappings
 nnoremap [q :action PreviousOccurence<cr>
@@ -88,10 +112,10 @@ nnoremap ]e :action GotoNextError<cr>
 " ===========================================================================
 " extensions
 " ===========================================================================
-set multiple-cursors
 map g<A-n> <Plug>AllOccurences
 
-
+" External Emacs
+nmap <leader>E :action Tool_External Tools_emacsclient<cr>
 
 " ============================================================================
 " IDE actions
@@ -107,10 +131,8 @@ nnoremap <Space>O :action GotoFile<CR>
 nnoremap <Space><Space> :action GotoFile<CR>
 nnoremap <Space>d :action CloseContent<CR>
 nnoremap <Space>j :action RecentFiles<CR>
-nnoremap <Space>k :action FileStructurePopup<CR>
-nnoremap <Space>h :action QuickJavaDoc<CR>
 " nnoremap <Space>gg :action CheckinProject<CR>
-nnoremap <Space>gg :action Tool_External Tools_Magit<CR>
+nnoremap <Space>gg :action Tool_External Tools_Magit<cr>
 nnoremap <C-w>q :action CloseContent<CR>
 nnoremap <C-w><C-q> :action CloseContent<CR>
 nnoremap <C-w>d :action ToggleDistractionFreeMode<CR>
@@ -121,8 +143,40 @@ nnoremap <Space>go :action com.github.shiraji.findpullrequest.action.FindPullReq
 nnoremap <Space>op :action SelectInProjectView<CR>
 nnoremap <Space>gh :action Vcs.ShowTabbedFileHistory<CR>
 vnoremap <space>gh :action Vcs.ShowHistoryForBlock<CR>
-vnoremap <space>r :action Refactorings.QuickListPopupAction<CR>
 nnoremap <Space>y :action CopyReference<CR>
 nnoremap <A-S-j> :action EditorCloneCaretBelow<CR>
 nnoremap <Space>mn :action MethodDown<CR>
 nnoremap <Space>mp :action MethodUp<CR>
+
+" REFACTOR
+vnoremap <Space>rv :action IntroduceVariable <CR>
+" Refactorings
+vmap T :action Refactorings.QuickListPopupAction<cr>
+vmap <leader>rm :action ExtractMethod<cr>
+nmap <leader>rr :action RenameElement<cr>
+nmap <leader>rg :action Generate<cr>
+nmap <leader>rI :action OptimizeImports<cr>
+" Inspection
+nmap <leader>rc :action InspectCode<cr>
+nmap <leader>wf :action HideAllWindows<cr>
+vnoremap K :action MoveLineUp<cr>
+vnoremap J :action MoveLineDown<cr>
+
+
+nnoremap <leader>wp :action TogglePresentationMode<cr>
+nnoremap <leader>w[ :action ToggleFullScreen<cr>
+
+set which-key
+set notimeout
+
+function toggleNumber()
+    if &rnu
+        set rnu!
+    else 
+        set rnu
+    endif
+endfunction
+
+nnoremap <leader>ln :call toggleNumber()<cr>
+
+nnoremap <leader>n :NERDTreeFocus<CR>
