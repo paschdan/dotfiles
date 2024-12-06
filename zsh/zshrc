@@ -185,11 +185,9 @@ mkfile() {
 # export PATH="/usr/local/opt/helm@2/bin:$PATH"
 export XDG_CONFIG_HOME=$HOME/.config
 
-GPG_TTY=$(tty)
-export GPG_TTY
-
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 source <(kubectl completion zsh)
+path+=~/dotfiles/zsh/bin
 
 export PATH="/usr/local/opt/python@3.7/bin:$PATH"
 
@@ -200,3 +198,16 @@ if [ -f '/Users/D073290/private/k8s-security/cloud-shell-setup/google-cloud-sdk/
 if [ -f '/Users/D073290/private/k8s-security/cloud-shell-setup/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/D073290/private/k8s-security/cloud-shell-setup/google-cloud-sdk/completion.zsh.inc'; fi
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+export GPG_TTY=$(tty)
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+#export KUBECONFIG=$(find ~/.kube/clusters -type f | gsed ':a;N;s/\n/:/;ba')
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+alias jira2org="pbpaste | pandoc -f jira -t org | pbcopy; echo 'Conversion done.'"
+alias org2jira="pbpaste | pandoc -f org -t jira | pbcopy; echo 'done.'"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

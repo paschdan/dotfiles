@@ -22,10 +22,23 @@ fi
 
 # create pr
 function gpr {
-  local base="$(command git log --pretty=format:"%d" | grep \( | head -n2 | tail -n1 | tr -d '()' | cut -f1 -d "," | cut -f2 -d '/' | xargs)"
-  local ticket="$(command git rev-parse --abbrev-ref HEAD | cut -d '_' -f 1)"
-  local subject="$(command git rev-parse --abbrev-ref HEAD | cut -d '_' -f2- | sed 's/[-_]/ /g')"
-  gh pr create -w -B ${base} -t "${ticket}: ${subject}"
+  local base="$(command git log --pretty=format:"%d" | grep \( | head -n2 | tail -n1 | tr -d '()' | rev | cut -f1 -d "," | rev | xargs)"
+
+  local verb="$(command git rev-parse --abbrev-ref HEAD | cut -d '_' -f 1)"
+  local ticket="$(command git rev-parse --abbrev-ref HEAD | cut -d '_' -f 2)"
+  local descr="$(command git rev-parse --abbrev-ref HEAD | cut -d '_' -f3- | sed 's/[-_]/ /g')"
+  local opts=""
+  if [[ $verb = "fix" ]]
+  then
+    opts+="-T bug.md"
+  fi
+  if [[ $verb = "feat" ]]
+  then
+    opts+="-T feature.md"
+  fi
+    
+  command="gh pr create -B ${base} ${opts} -t '${verb}: ${descr} (${ticket})'"
+  eval ${command}
 }
 
 # rebase
