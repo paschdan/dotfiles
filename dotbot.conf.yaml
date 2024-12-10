@@ -42,8 +42,7 @@
     ~/work/.gitconfig: git/gitconfig_work
     ~/.tmux.conf: tmux/tmux.conf
     ~/bin/copy: bin/copy
-    ~/.doom.d: emacs/doom.d
-    ~/.emacs.d: emacs/doom-emacs
+    ~/.config/nvim: nvim
 
 - shell:
     # Install doom
