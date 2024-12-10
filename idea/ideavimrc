@@ -1,3 +1,4 @@
+Plug 'tpope/vim-surround'
 set showmode
 set visualbell
 set hlsearch
@@ -10,19 +11,20 @@ set multiple-cursors
 set nu
 set rnu
 set idearefactormode=keep
+set clipboard+=unnamed
 
 let mapleader = " "
 "set easymotion
 
 
 " system clipboard
-vmap <leader>y "+y
-vmap <leader>d "+d
-nmap <leader>y "+yy
-nmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>p "+p
-vmap <leader>P "+P
+# vmap <leader>y "+y
+# vmap <leader>d "+d
+# nmap <leader>y "+yy
+# nmap <leader>p "+p
+# nmap <leader>P "+P
+# vmap <leader>p "+p
+# vmap <leader>P "+P
 
 " ============================================================================
 " easy window navigation
@@ -143,7 +145,6 @@ nnoremap <Space>go :action com.github.shiraji.findpullrequest.action.FindPullReq
 nnoremap <Space>op :action SelectInProjectView<CR>
 nnoremap <Space>gh :action Vcs.ShowTabbedFileHistory<CR>
 vnoremap <space>gh :action Vcs.ShowHistoryForBlock<CR>
-nnoremap <Space>y :action CopyReference<CR>
 nnoremap <A-S-j> :action EditorCloneCaretBelow<CR>
 nnoremap <Space>mn :action MethodDown<CR>
 nnoremap <Space>mp :action MethodUp<CR>

@@ -1,10 +1,10 @@
 [user]
-	name = paschdan
-	email = paschdan@gmail.com
-	signingkey = 933521D58E8580C6
+	name = Daniel Paschke
+	email = daniel.paschke@sap.com
+  	signingkey = AE41AE989D8FCB47
 [core]
 	editor = vim
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/D073290/.gitignore_global
 [pull]
 	rebase = true
 [rebase]
@@ -12,17 +12,15 @@
 [alias]
 	cu = "!git branch --merged | egrep -v '(^\\*|\\smain$|\\smaster$)' | xargs git branch -d"
 
-[includeIf "gitdir:~/work/"]
-  	path = ~/work/.gitconfig
+[includeIf "gitdir:~/SAPDevelop/"]
+  	path = ~/SAPDevelop/.gitconfig
 [github "github.wdf.sap.corp/api/v3"]
 	user = D073290
 [log]
  	mailmap=true
 [commit]
 	gpgsign = true
-	template = /Users/D073290/work/git-hooks/commit-template
-[gpg]
-	program = gpg
+	template = /Users/D073290/.stCommitMsg
 [credential]
 	helper = store --file ~/.git-credentials
 [filter "lfs"]
@@ -30,3 +28,11 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[http]
+	postBuffer = 157286400

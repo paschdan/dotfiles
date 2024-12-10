@@ -22,50 +22,31 @@ function jit-source() {
 
 jit ~/.zshrc
 
-### VI MODE
+# zplug
+source ~/.zplug/init.zsh
 
-# Updates editor information when the keymap changes.
-function zle-keymap-select() {
-  # update keymap variable for the prompt
-  VI_KEYMAP=$KEYMAP
+zplug "jeffreytse/zsh-vi-mode"
 
-  zle reset-prompt
-  zle -R
+# Then, source plugins and add commands to $PATH
+zplug load
+
+# zvm
+#
+
+function zvm_config() {
+  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 }
 
-zle -N zle-keymap-select
-
-bindkey -v
-
-# allow v to edit the command line (standard behaviour)
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd 'v' edit-command-line
-
-# allow ctrl-p, ctrl-n for navigate history (standard behaviour)
-bindkey '^P' up-history
-bindkey '^N' down-history
-
-# allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-
-# if mode indicator wasn't setup by theme, define default
-if [[ "$MODE_INDICATOR" == "" ]]; then
-  MODE_INDICATOR="%{$fg_bold[red]%}<%{$fg[red]%}<<%{$reset_color%}"
-fi
-
-function vi_mode_prompt_info() {
-  echo "${${VI_KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
+function zvm_after_lazy_keybindings() {
+  zvm_bindkey vicmd '^[t' tmux_left_pane
+  zvm_bindkey viins '^[t' tmux_left_pane
 }
 
-# define right prompt, if it wasn't defined by a theme
-if [[ "$RPS1" == "" && "$RPROMPT" == "" ]]; then
-  RPS1='$(vi_mode_prompt_info)'
-fi
+function zvm_after_init() {
+   source ~/dotfiles/zsh/bindkeys.zsh
+ }
 
-### END VI MODE
+source ~/.zplug/repos/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 #completions
 fpath=(~/dotfiles/zsh/completions $fpath)
@@ -80,8 +61,6 @@ jit-source ~/dotfiles/zsh/history.zsh
 jit-source ~/dotfiles/zsh/aliases/docker.zsh
 jit-source ~/dotfiles/zsh/aliases/encode64.zsh
 jit-source ~/dotfiles/zsh/aliases/git.zsh
-jit-source ~/dotfiles/zsh/aliases/event-ticketing.zsh
-jit-source ~/dotfiles/zsh/aliases/k8s.zsh
 
 # fzf
 path+=~/dotfiles/zsh/fzf/bin
@@ -127,16 +106,6 @@ zle -N fzf-history-widget-unique
 
 fzf_default_completion=expand-or-complete-with-dots
 
-function bindkey() {}
-jit-source ~/dotfiles/zsh/fzf/shell/completion.zsh
-jit-source ~/dotfiles/zsh/fzf/shell/key-bindings.zsh
-unfunction bindkey
-
-bindkey '\t'      expand-or-complete-with-dots        # tab        completion with '...'
-bindkey '\e[1;3B' fzf-cd-widget                       # alt+down   fzf cd
-bindkey '^T'      fzf-completion                      # ctrl+t     fzf completion
-bindkey '^R'      fzf-history-widget-unique           # ctrl+r     fzf history
-
 # alias tips
 jit-source ~/dotfiles/zsh/zsh-fast-alias-tips/fast-alias-tips.plugin.zsh
 
@@ -150,12 +119,6 @@ jit-source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin
 #Substring Search
 jit-source ~/dotfiles/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
 
 function phpco() { docker run --init -v $PWD:/mnt/src:cached --rm -u "$(id -u):$(id -g)" frbit/phpco:latest $@; return $?; }
 
@@ -207,7 +170,19 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 alias jira2org="pbpaste | pandoc -f jira -t org | pbcopy; echo 'Conversion done.'"
 alias org2jira="pbpaste | pandoc -f org -t jira | pbcopy; echo 'done.'"
+alias md2jira="pbpaste | pandoc -f md -t jira |pbcopy; echo 'done.'"
 
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+
+function tmux_left_pane() {
+      tmux select-pane -L
+      tmux resize-pane -Z
+      # zle reset-prompt # Refresh the prompt after switching panes
+}
+
+zvm_define_widget tmux_left_pane
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/sapmachine-21.jdk/Contents/Home
